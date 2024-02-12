@@ -33,7 +33,7 @@ public class WishlistController : ControllerBase {
 	[HttpPost]
 	public async Task<IActionResult> CreateWishlist(WishlistObject wishlist) {
 		Wishlist newWishlist = new() {
-			CustomerId  = wishlist.CustomerId,
+			CustomerId = wishlist.CustomerId,
 		};
 		_context.Wishlists.Add(newWishlist);
 		await _context.SaveChangesAsync();

@@ -34,7 +34,7 @@ public class WishlistProductController : ControllerBase {
 	public async Task<IActionResult> CreateWishlistProduct(WishlistProductObject wishlistProduct) {
 		WishlistProduct newWishlistProduct = new() {
 			WishlistId = wishlistProduct.WishlistId,
-			ProductId = wishlistProduct.ProductId
+			ProductId  = wishlistProduct.ProductId
 		};
 		_context.WishlistProducts.Add(newWishlistProduct);
 		await _context.SaveChangesAsync();
@@ -47,7 +47,7 @@ public class WishlistProductController : ControllerBase {
 		if (wishlistProductToUpdate == null) {
 			return NotFound();
 		}
-		wishlistProductToUpdate.ProductId = wishlistProduct.ProductId;
+		wishlistProductToUpdate.ProductId  = wishlistProduct.ProductId;
 		wishlistProductToUpdate.WishlistId = wishlistProduct.WishlistId;
 		await _context.SaveChangesAsync();
 		return Ok(wishlistProductToUpdate);
