@@ -21,9 +21,17 @@ public class CustomerController : ControllerBase {
 		return Ok(customers);
 	}
 
-	[HttpGet("{id}")]
+	[HttpGet("id/{id}")]
 	public async Task<IActionResult> GetCustomer(int id) {
 		var customer = await _context.Customers.FindAsync(id);
+		if (customer == null) {
+			return NotFound();
+		}
+		return Ok(customer);
+	}
+	[HttpGet("name/{name}")]
+	public async Task<IActionResult> GetCustomer(string name) {
+		var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Name == name || c.Email == name);
 		if (customer == null) {
 			return NotFound();
 		}
