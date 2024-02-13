@@ -9,9 +9,9 @@ namespace CodeChallenge.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class CustomerController : ControllerBase {
-	private readonly CodeChallengeDbContext _context;
+	private readonly IApplicationDbContext _context;
 
-	public CustomerController(CodeChallengeDbContext context) {
+	public CustomerController(IApplicationDbContext context) {
 		_context = context;
 	}
 	
@@ -45,7 +45,7 @@ public class CustomerController : ControllerBase {
 			Email = customer.Email
 		};
 		_context.Customers.Add(newCustomer);
-		await _context.SaveChangesAsync();
+		await _context.SaveChangesAsync(CancellationToken.None);
 		return CreatedAtRoute(new { id = newCustomer.Id }, newCustomer);
 	}
 	
@@ -57,7 +57,7 @@ public class CustomerController : ControllerBase {
 		}
 		customerToUpdate.Name  = customer.Name;
 		customerToUpdate.Email = customer.Email;
-		await _context.SaveChangesAsync();
+		await _context.SaveChangesAsync(CancellationToken.None);
 		return Ok(customerToUpdate);
 	}
 	
@@ -68,7 +68,7 @@ public class CustomerController : ControllerBase {
 			return NotFound();
 		}
 		_context.Customers.Remove(customer);
-		await _context.SaveChangesAsync();
+		await _context.SaveChangesAsync(CancellationToken.None);
 		return Ok();
 	}
 	

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CodeChallenge.Data;
 
-public class CodeChallengeDbContext : DbContext {
+public class CodeChallengeDbContext : DbContext, IApplicationDbContext {
 	public CodeChallengeDbContext(DbContextOptions<CodeChallengeDbContext> options)
 		: base(options) { }
 
