@@ -9,9 +9,9 @@ namespace CodeChallenge.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class CustomerController : ControllerBase {
-	private readonly IApplicationDbContext _context;
+	private readonly CodeChallengeDbContext _context;
 
-	public CustomerController(IApplicationDbContext context) {
+	public CustomerController(CodeChallengeDbContext context) {
 		_context = context;
 	}
 	
@@ -50,7 +50,7 @@ public class CustomerController : ControllerBase {
 	}
 	
 	[HttpPut("{id}")]
-	public async Task<IActionResult> UpdateUser(int id, CustomerObject customer) {
+	public async Task<IActionResult> UpdateCustomer(int id, CustomerObject customer) {
 		var customerToUpdate = await _context.Customers.FindAsync(id);
 		if (customerToUpdate == null) {
 			return NotFound();
@@ -62,7 +62,7 @@ public class CustomerController : ControllerBase {
 	}
 	
 	[HttpDelete("{id}")]
-	public async Task<IActionResult> DeleteUser(int id) {
+	public async Task<IActionResult> DeleteCustomer(int id) {
 		var customer = await _context.Customers.FindAsync(id);
 		if (customer == null) {
 			return NotFound();

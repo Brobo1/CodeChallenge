@@ -61,7 +61,7 @@ public class CustomerControllerTests {
 			var controller = new CustomerController(context);
 
 			await controller.CreateUser(new() { Name = "Test 3", Email = "are@are.com" });
-			
+
 			// Act
 			var result = await controller.GetCustomers() as OkObjectResult;
 
@@ -70,8 +70,8 @@ public class CustomerControllerTests {
 			var customers = result.Value as List<Customer>;
 			Assert.Equal(3, customers.Count);
 		}
-	}	
-	
+	}
+
 	[Fact]
 	public async Task UpdateCustomer_GetRow() {
 		// Use a clean instance of context for each test
@@ -84,7 +84,7 @@ public class CustomerControllerTests {
 			var controller = new CustomerController(context);
 
 			await controller.CreateUser(new() { Name = "Test 3", Email = "are@are.com" });
-			
+
 			// Act
 			var result = await controller.GetCustomers() as OkObjectResult;
 
@@ -94,7 +94,7 @@ public class CustomerControllerTests {
 			Assert.Equal(3, customers.Count);
 		}
 	}
-	
+
 	[Fact]
 	public async Task DeleteCustomer_GetRows() {
 		// Use a clean instance of context for each test
@@ -106,8 +106,8 @@ public class CustomerControllerTests {
 
 			var controller = new CustomerController(context);
 
-			await controller.DeleteUser(1);
-			
+			await controller.DeleteCustomer(1);
+
 			// Act
 			var result = await controller.GetCustomers() as OkObjectResult;
 
