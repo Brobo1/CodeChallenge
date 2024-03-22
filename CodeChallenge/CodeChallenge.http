@@ -1,6 +1,6 @@
-@CodeChallenge_HostAddress = http://localhost:5237
+@CodeChallenge_HostAddress = https://localhost:7286/api
 
-GET {{CodeChallenge_HostAddress}}/codechallenge/
+GET {{CodeChallenge_HostAddress}}/Category/
 Accept: application/json
 
 ###

@@ -7,7 +7,7 @@ VALUES ('John Doe', 'john.doe@example.com'),
        ('Charlie Brown', 'charlie.brown@example.com'),
        ('David Williams', 'david.williams@example.com');
 
-INSERT INTO Category (Name)
+INSERT INTO Categories (Name)
 VALUES ('Computers & Accessories'),
        ('Cell Phones & Accessories'),
        ('TV & Video'),
