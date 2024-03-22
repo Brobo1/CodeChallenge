@@ -17,6 +17,14 @@ public class Program {
 		var app = builder.Build();
 		app.UseSwagger();
 		app.UseSwaggerUI();
+		
+		app.UseCors(c => {
+			c
+				.AllowAnyHeader()
+				.AllowAnyMethod()
+				.AllowAnyOrigin();
+		});
+		
 		app.MapControllers();
 
 		app.Run();
