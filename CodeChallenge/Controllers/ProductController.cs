@@ -33,8 +33,9 @@ public class ProductController : ControllerBase {
 	[HttpPost]
 	public async Task<IActionResult> CreateProduct(ProductObject product) {
 		Product newProduct = new() {
-			Name  = product.Name,
-			Price = product.Price,
+			Name        = product.Name,
+			Description = product.Description,
+			Price       = product.Price,
 		};
 		_context.Products.Add(newProduct);
 		await _context.SaveChangesAsync();
@@ -47,8 +48,10 @@ public class ProductController : ControllerBase {
 		if (productToUpdate == null) {
 			return NotFound();
 		}
-		productToUpdate.Name  = product.Name;
-		productToUpdate.Price = product.Price;
+		productToUpdate.Name        = product.Name;
+		productToUpdate.Description = product.Description;
+		productToUpdate.Price       = product.Price;
+
 		await _context.SaveChangesAsync();
 		return Ok(productToUpdate);
 	}
@@ -66,6 +69,7 @@ public class ProductController : ControllerBase {
 }
 
 public class ProductObject {
-	public string Name  { get; set; }
-	public int    Price { get; set; }
+	public string Name        { get; set; }
+	public string Description { get; set; }
+	public int    Price       { get; set; }
 }
