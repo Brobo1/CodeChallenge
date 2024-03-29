@@ -1,4 +1,22 @@
-﻿-- Insert into Customers
+﻿DELETE FROM OrderProducts;
+DELETE FROM WishlistProducts;
+DELETE FROM Ratings;
+DELETE FROM Orders;
+DELETE FROM Wishlists;
+DELETE FROM Products;
+DELETE FROM Categories;
+DELETE FROM Customers;
+
+DELETE FROM sqlite_sequence WHERE name='OrderProducts';
+DELETE FROM sqlite_sequence WHERE name='WishlistProducts';
+DELETE FROM sqlite_sequence WHERE name='Ratings';
+DELETE FROM sqlite_sequence WHERE name='Orders';
+DELETE FROM sqlite_sequence WHERE name='Wishlists';
+DELETE FROM sqlite_sequence WHERE name='Products';
+DELETE FROM sqlite_sequence WHERE name='Categories';
+DELETE FROM sqlite_sequence WHERE name='Customers';
+
+-- Insert into Customers
 INSERT INTO Customers (Name, Email)
 VALUES ('John Doe', 'john.doe@example.com'),
        ('Jane Doe', 'jane.doe@example.com'),
