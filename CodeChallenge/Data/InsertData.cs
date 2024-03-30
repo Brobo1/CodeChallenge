@@ -10,6 +10,9 @@ public class InsertData {
 	}
 
 	public void InsertAll() {
+		ResetDatabase();
+		_context.SaveChanges();
+
 		InsertCategory();
 		InsertCustomers();
 		InsertOrder();
@@ -21,7 +24,11 @@ public class InsertData {
 
 		_context.SaveChanges();
 	}
-
+	public void ResetDatabase()
+	{
+		_context.Database.EnsureDeleted();
+		_context.Database.EnsureCreated();
+	}
 	private void InsertCategory() {
 		void InsertNode(Category parent, Category newCategory) {
 			var siblings = parent.Children;
