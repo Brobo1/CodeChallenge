@@ -15,6 +15,12 @@ public class CategoryController : ControllerBase {
 		_context = context;
 	}
 
+	// [HttpGet]
+	// public async Task<IActionResult> GetCategories() {
+	// 	var customers = await _context.Categories.ToListAsync();
+	// 	return Ok(customers);
+	// }
+	
 	[HttpGet]
 	public async Task<IActionResult> GetCategories() {
 		var customers = await _context.Categories.ToListAsync();
