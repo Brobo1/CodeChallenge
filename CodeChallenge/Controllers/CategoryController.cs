@@ -14,7 +14,7 @@ public class CategoryController : ControllerBase {
 	public CategoryController(CodeChallengeDbContext context) {
 		_context = context;
 	}
-	
+
 	[HttpGet]
 	public async Task<IActionResult> GetCategories() {
 		var customers = await _context.Categories.ToListAsync();
@@ -37,28 +37,28 @@ public class CategoryController : ControllerBase {
 	// 	}
 	// 	return Ok(customer);
 	// }
-	
+
 	[HttpPost]
 	public async Task<IActionResult> CreateCategory(CategoryObject category) {
 		Category newCategory = new() {
-			Name  = category.Name,
+			Name = category.Name,
 		};
 		_context.Categories.Add(newCategory);
 		await _context.SaveChangesAsync(CancellationToken.None);
 		return CreatedAtRoute(new { id = newCategory.Id }, newCategory);
 	}
-	
+
 	[HttpPut("{id}")]
 	public async Task<IActionResult> UpdateCategory(int id, CategoryObject category) {
 		var categoryToUpdate = await _context.Categories.FindAsync(id);
 		if (categoryToUpdate == null) {
 			return NotFound();
 		}
-		categoryToUpdate.Name  = category.Name;
+		categoryToUpdate.Name = category.Name;
 		await _context.SaveChangesAsync(CancellationToken.None);
 		return Ok(categoryToUpdate);
 	}
-	
+
 	[HttpDelete("{id}")]
 	public async Task<IActionResult> DeleteCategory(int id) {
 		var category = await _context.Categories.FindAsync(id);
@@ -69,7 +69,6 @@ public class CategoryController : ControllerBase {
 		await _context.SaveChangesAsync(CancellationToken.None);
 		return Ok();
 	}
-	
 }
 
 public class CategoryObject {

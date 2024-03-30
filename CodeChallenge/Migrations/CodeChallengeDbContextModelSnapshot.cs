@@ -23,6 +23,9 @@ namespace CodeChallenge.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Lft")
                         .HasColumnType("INTEGER");
 
@@ -34,6 +37,8 @@ namespace CodeChallenge.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -186,6 +191,13 @@ namespace CodeChallenge.Migrations
                     b.ToTable("WishlistProducts");
                 });
 
+            modelBuilder.Entity("CodeChallenge.Models.Category", b =>
+                {
+                    b.HasOne("CodeChallenge.Models.Category", null)
+                        .WithMany("Children")
+                        .HasForeignKey("CategoryId");
+                });
+
             modelBuilder.Entity("CodeChallenge.Models.Order", b =>
                 {
                     b.HasOne("CodeChallenge.Models.Customer", "Customer")
@@ -278,6 +290,8 @@ namespace CodeChallenge.Migrations
 
             modelBuilder.Entity("CodeChallenge.Models.Category", b =>
                 {
+                    b.Navigation("Children");
+
                     b.Navigation("Products");
                 });
 
