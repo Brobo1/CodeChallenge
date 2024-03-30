@@ -26,15 +26,15 @@ VALUES ('John Doe', 'john.doe@example.com'),
        ('David Williams', 'david.williams@example.com');
 
 INSERT INTO Categories (Name)
-VALUES ('Computers & Accessories'),
-       ('Cell Phones & Accessories'),
-       ('TV & Video'),
-       ('Audio & Home Theater'),
+VALUES ('Computers'),
+       ('Phones'),
+       ('TV & video'),
+       ('Audio'),
        ('Camera & Photo'),
-       ('Wearable Technology'),
-       ('Car Electronics & GPS'),
+       ('Wearables'),
+       ('Appliances'),
        ('Office Electronics'),
-       ('Video Game Consoles & Accessories'),
+       ('Gaming'),
        ('Electronic Components');
 
 -- Products for 'Computers & Accessories'
@@ -85,13 +85,13 @@ VALUES ('Smart Watch', 300, 6, 'Smart watch with fitness tracking and notificati
        ('Wireless Earbuds', 150, 6, 'Wireless earbuds with high quality sound'),
        ('Smart Glasses', 500, 6, 'Smart glasses with augmented reality features');
 
--- Products for 'Car Electronics & GPS'
+-- Products for 'Appliances'
 INSERT INTO Products (Name, Price, CategoryId, Description)
-VALUES ('Car Stereo', 200, 7, 'Car stereo with radio and music playback'),
-       ('GPS Navigator', 150, 7, 'GPS navigator for accurate directions and traffic information'),
-       ('Dash Cam', 100, 7, 'Dash cam for recording your drives'),
-       ('Car Charger', 20, 7, 'Car charger for powering your devices on the go'),
-       ('Car Mount', 15, 7, 'Car mount for holding your phone or GPS device');
+VALUES ('Refrigerator', 1200, 7, 'Refrigerator with large capacity and low energy consumption'),
+       ('Microwave Oven', 250, 7, 'Microwave oven for quick and efficient cooking'),
+       ('Washing Machine', 800, 7, 'Washing machine with efficient cleaning and durable performance'),
+       ('Blender', 50, 7, 'Blender for smooth blending performance'),
+       ('Coffee Maker', 40, 7, 'Coffee maker for perfect brew every time');
 
 -- Products for 'Office Electronics'
 INSERT INTO Products (Name, Price, CategoryId, Description)

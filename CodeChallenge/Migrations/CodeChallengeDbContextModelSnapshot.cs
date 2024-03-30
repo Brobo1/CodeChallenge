@@ -23,9 +23,15 @@ namespace CodeChallenge.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Lft")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Rgt")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
