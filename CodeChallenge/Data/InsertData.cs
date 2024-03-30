@@ -11,8 +11,6 @@ public class InsertData {
 
 	public void InsertAll() {
 		ResetDatabase();
-		_context.SaveChanges();
-
 		InsertCategory();
 		InsertCustomers();
 		InsertOrder();
@@ -24,36 +22,54 @@ public class InsertData {
 
 		_context.SaveChanges();
 	}
-	public void ResetDatabase()
-	{
+
+	public void ResetDatabase() {
 		_context.Database.EnsureDeleted();
 		_context.Database.EnsureCreated();
 	}
-	private void InsertCategory() {
-		void InsertNode(Category parent, Category newCategory) {
-			var siblings = parent.Children;
-			siblings = siblings.OrderBy(c => c.Rgt).ToList();
-			var lastRightValue = siblings.LastOrDefault()?.Rgt ?? parent.Lft;
 
-			newCategory.Lft = lastRightValue  + 1;
-			newCategory.Rgt = newCategory.Lft + 1;
+	void InsertNode(Category parentCategory, Category newCategory) {
+		var parent = _context.Categories
+							 .FirstOrDefault(c => c.Name == parentCategory.Name);
+		if (parent == null) {
+			parentCategory.Lft = 1;
+			parentCategory.Rgt = 2;
 
-			foreach (var sibling in siblings.Where(s => s.Rgt > lastRightValue)) {
-				sibling.Lft += 2;
-				sibling.Rgt += 2;
-			}
-
-			parent.Children.Add(newCategory);
-			_context.Update(parent);
+			_context.Categories.Add(parentCategory);
 			_context.SaveChanges();
+			parent = parentCategory;
 		}
-		
-		var parentCategory = new Category { Name = "Electronics" };
-		_context.Categories.Add(parentCategory);
-		_context.SaveChanges();
 
-		
-		InsertNode(parentCategory, new Category{Name = "Laptop"});
+		newCategory.Lft = parent.Rgt;
+		newCategory.Rgt = newCategory.Lft + 1;
+
+		foreach (var node in _context.Categories.Where(n => n.Rgt >= newCategory.Lft)) {
+			node.Rgt += 2;
+		}
+
+		foreach (var node in _context.Categories.Where(n => n.Lft > newCategory.Lft)) {
+			node.Lft += 2;
+		}
+
+		_context.Categories.Add(newCategory);
+
+		parent.Rgt = newCategory.Rgt + 1;
+		_context.SaveChanges();
+	}
+
+	private void InsertCategory() {
+		InsertNode(new Category { Name = "Electronics" }, new Category { Name = "Mobile" });
+		InsertNode(new Category { Name = "Electronics" }, new Category { Name = "Computers" });
+		InsertNode(new Category { Name = "Computers" },   new Category { Name = "Laptop" });
+		InsertNode(new Category { Name = "Computers" },   new Category { Name = "Components" });
+		InsertNode(new Category { Name = "Components" },  new Category { Name = "RAM" });
+		InsertNode(new Category { Name = "Components" },  new Category { Name = "CPU" });
+		InsertNode(new Category { Name = "Components" },  new Category { Name = "HDD" });
+		InsertNode(new Category { Name = "Components" },  new Category { Name = "PSU" });
+
+		// ...add more child categories if you want.
+
+		_context.SaveChanges();
 	}
 
 	private void InsertCustomers() {
