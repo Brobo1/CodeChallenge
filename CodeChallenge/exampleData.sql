@@ -25,7 +25,7 @@ VALUES ('John Doe', 'john.doe@example.com'),
        ('Charlie Brown', 'charlie.brown@example.com'),
        ('David Williams', 'david.williams@example.com');
 
-INSERT INTO Categories (Name)
+INSERT INTO Categories (Name, Lft, Rgt)
 VALUES ('Computers'),
        ('Phones'),
        ('TV & video'),
