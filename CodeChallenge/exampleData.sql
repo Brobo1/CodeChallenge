@@ -166,8 +166,8 @@ with tree as
          (select *
           from Categories
           union all
-          select *
-          from tree
+          select c.id, c.categoryid, c.name
+          from Categories c 
           where CategoryId =
                 (select Id
                  from Categories
@@ -176,8 +176,8 @@ select *
 from tree;
 
 with tree AS
-         (select id, categoryid, name
-          from Categories 
+         (select *
+          from Categories
           where Name = 'Laptops'
           union all
           select c.id, c.categoryid, c.name
