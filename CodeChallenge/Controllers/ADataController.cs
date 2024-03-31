@@ -6,10 +6,10 @@ namespace CodeChallenge.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DataController : ControllerBase {
+public class ADataController : ControllerBase {
 	private readonly InsertData _insertData;
 
-	public DataController(CodeChallengeDbContext context) {
+	public ADataController(CodeChallengeDbContext context) {
 		_insertData = new InsertData(context);
 	}
 

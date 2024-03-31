@@ -1,5 +1,7 @@
 ﻿using CodeChallenge.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace CodeChallenge.Data;
 
 public class InsertData {
@@ -24,19 +26,39 @@ public class InsertData {
 	}
 
 	public void ResetDatabase() {
-		_context.Database.EnsureDeleted();
-		_context.Database.EnsureCreated();
+		_context.Categories.ExecuteDelete();
+		_context.Customers.ExecuteDelete();
+		_context.Products.ExecuteDelete();
+		_context.Database.ExecuteSqlRaw("DELETE FROM sqlite_sequence WHERE name='OrderProducts';"    +
+										"DELETE FROM sqlite_sequence WHERE name='WishlistProducts';" +
+										"DELETE FROM sqlite_sequence WHERE name='Ratings';"          +
+										"DELETE FROM sqlite_sequence WHERE name='Orders';"           +
+										"DELETE FROM sqlite_sequence WHERE name='Wishlists';"        +
+										"DELETE FROM sqlite_sequence WHERE name='Products';"         +
+										"DELETE FROM sqlite_sequence WHERE name='Categories';"       +
+										"DELETE FROM sqlite_sequence WHERE name='Customers';");
+		// _context.Database.EnsureDeleted();
+		// _context.Database.EnsureCreated();
 	}
 
 	private void InsertCategory() {
-		void InsertNode(Category parentCategory, Category newCategory) {
+		void InsertNode(Category parentCategory, Category newCategory = null!) {
+			if (newCategory == null) {
+				
+			}
+			_context.Categories.Add(parentCategory);
+			_context.SaveChanges();
 
+			var parentId = _context.Categories.FirstOrDefault(c => c.Name == parentCategory.Name)?.Id;
 		}
 
-		InsertNode(new Category { Name = "Store" },      new Category { Name = "Computer" });
-		InsertNode(new Category { Name = "Store" },      new Category { Name = "Video" });
-		InsertNode(new Category { Name = "Store" },      new Category { Name = "Audio" });
-		InsertNode(new Category { Name = "Store" },      new Category { Name = "Phones" });
+		InsertNode(new Category { Name = "Computer" });
+		InsertNode(new Category { Name = "Computer" }, new Category { Name = "Laptop" });
+		InsertNode(new Category { Name = "Video" },    new Category { Name = "Video" });
+		InsertNode(new Category { Name = "Audio" },    new Category { Name = "Audio" });
+		InsertNode(new Category { Name = "Audio" },    new Category { Name = "Audio" });
+
+		/*InsertNode(new Category { Name = "Store" },      new Category { Name = "Phones" });
 		InsertNode(new Category { Name = "Store" },      new Category { Name = "Wearables" });
 		InsertNode(new Category { Name = "Computer" },   new Category { Name = "Laptop" });
 		InsertNode(new Category { Name = "Laptop" },     new Category { Name = "Gaming Laptop" });
@@ -54,7 +76,7 @@ public class InsertData {
 		InsertNode(new Category { Name = "Video" },      new Category { Name = "TVs" });
 		InsertNode(new Category { Name = "Video" },      new Category { Name = "Projector" });
 		InsertNode(new Category { Name = "Audio" },      new Category { Name = "Speakers" });
-		InsertNode(new Category { Name = "Wearables" },  new Category { Name = "Smartwatch" });
+		InsertNode(new Category { Name = "Wearables" },  new Category { Name = "Smartwatch" });*/
 
 		_context.SaveChanges();
 	}
@@ -68,6 +90,17 @@ public class InsertData {
 			return category.Id;
 		}
 
+		var products = new List<Product> {
+			new() {
+				Name        = "PremiumPro Laptop",
+				Description = "Top-notch laptop with advanced features, built for professionals.",
+				Price       = 2599,
+				Image       = "UrlToImage1",
+				Brand       = "TechBrand",
+			},
+		};
+
+		/*
 		var products = new List<Product> {
 			new() {
 				Name        = "PremiumPro Laptop",
@@ -189,8 +222,7 @@ public class InsertData {
 				Brand       = "CreativeBrand",
 				CategoryId  = GetCategoryId("Tower")
 			},
-			new()
-			{
+			new() {
 				Name        = "RamSpeed 8GB DDR4",
 				Description = "8GB DDR4 RAM with 3200MHz speed for optimal performance",
 				Price       = 79,
@@ -198,8 +230,7 @@ public class InsertData {
 				Brand       = "RamSpeed",
 				CategoryId  = GetCategoryId("RAM")
 			},
-			new()
-			{
+			new() {
 				Name        = "RamFast 16GB DDR4",
 				Description = "16GB DDR4 RAM with 3600MHz speed, ideal for intensive tasks",
 				Price       = 129,
@@ -207,8 +238,7 @@ public class InsertData {
 				Brand       = "RamFast",
 				CategoryId  = GetCategoryId("RAM")
 			},
-			new()
-			{
+			new() {
 				Name        = "RamPro 32GB DDR4",
 				Description = "32GB DDR4 RAM with 3600MHz speed, designed for professional use",
 				Price       = 229,
@@ -216,8 +246,7 @@ public class InsertData {
 				Brand       = "RamPro",
 				CategoryId  = GetCategoryId("RAM")
 			},
-			new()
-			{
+			new() {
 				Name        = "RamValue 8GB DDR3",
 				Description = "Budget-friendly 8GB DDR3 RAM, suitable for everyday tasks",
 				Price       = 49,
@@ -225,8 +254,7 @@ public class InsertData {
 				Brand       = "RamValue",
 				CategoryId  = GetCategoryId("RAM")
 			},
-			new()
-			{
+			new() {
 				Name        = "RamBasic 4GB DDR3",
 				Description = "Cost-efficient 4GB DDR3 RAM, ideal for basic usage",
 				Price       = 29,
@@ -235,6 +263,7 @@ public class InsertData {
 				CategoryId  = GetCategoryId("RAM")
 			}
 		};
+		*/
 		_context.Products.AddRange(products);
 	}
 

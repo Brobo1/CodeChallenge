@@ -18,10 +18,10 @@ public class Product {
 	public string Image { get; set; } = string.Empty;
 
 	public int Price      { get; set; }
-	public int CategoryId { get; set; }
+	public int? CategoryId { get; set; }
 
 	public ICollection<Rating>?          Ratings          { get; set; }
 	public ICollection<OrderProduct>?    OrderProducts    { get; set; }
 	public ICollection<WishlistProduct>? WishlistProducts { get; set; }
-	public Category                      Category         { get; set; }
+	public Category?                      Category         { get; set; }
 }

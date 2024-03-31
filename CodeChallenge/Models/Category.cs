@@ -8,6 +8,8 @@ public class Category {
 	[StringLength(200)]
 	public string Name { get; set; } = string.Empty;
 
+	public int? CategoryId { get; set; }
+
 	public ICollection<Product>? Products      { get; set; }
 	public ICollection<Category> SubCategories { get; set; }
 }
