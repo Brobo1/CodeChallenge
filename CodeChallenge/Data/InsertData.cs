@@ -42,21 +42,33 @@ public class InsertData {
 	}
 
 	private void InsertCategory() {
-		void InsertNode(Category parentCategory, Category newCategory = null!) {
-			if (newCategory == null) {
-				
+		void InsertNode(Category parentCategory, Category? newCategory = null) {
+
+			if (parentCategory.Name == newCategory?.Name) {
+				return;
 			}
-			_context.Categories.Add(parentCategory);
+			if (newCategory == null) {
+				_context.Categories.Add(parentCategory);
+			} else {
+				var parentId = _context.Categories.FirstOrDefault(c => c.Name == parentCategory.Name)?.Id;
+				newCategory.CategoryId = parentId;
+				Console.WriteLine($"{parentCategory.Name} {parentId}");
+				_context.Categories.Add(newCategory);
+			}
 			_context.SaveChanges();
 
-			var parentId = _context.Categories.FirstOrDefault(c => c.Name == parentCategory.Name)?.Id;
 		}
 
 		InsertNode(new Category { Name = "Computer" });
-		InsertNode(new Category { Name = "Computer" }, new Category { Name = "Laptop" });
-		InsertNode(new Category { Name = "Video" },    new Category { Name = "Video" });
-		InsertNode(new Category { Name = "Audio" },    new Category { Name = "Audio" });
-		InsertNode(new Category { Name = "Audio" },    new Category { Name = "Audio" });
+		InsertNode(new Category { Name = "Computer" }, new Category { Name = "Laptops" });
+		InsertNode(new Category { Name = "Laptops" }, new Category { Name = "Gaming" });
+		InsertNode(new Category { Name = "Laptops" }, new Category { Name = "Work" });
+		InsertNode(new Category { Name = "Laptops" }, new Category { Name = "Ultrabook" });
+		
+		InsertNode(new Category { Name = "Video" });
+		InsertNode(new Category { Name = "Video" }, new Category { Name = "TVs" });
+		InsertNode(new Category { Name = "Audio" });
+		InsertNode(new Category { Name = "Audio" }, new Category { Name = "Speakers" });
 
 		/*InsertNode(new Category { Name = "Store" },      new Category { Name = "Phones" });
 		InsertNode(new Category { Name = "Store" },      new Category { Name = "Wearables" });

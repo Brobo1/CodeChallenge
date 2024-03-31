@@ -1,20 +1,44 @@
-﻿DELETE FROM OrderProducts;
-DELETE FROM WishlistProducts;
-DELETE FROM Ratings;
-DELETE FROM Orders;
-DELETE FROM Wishlists;
-DELETE FROM Products;
-DELETE FROM Categories;
-DELETE FROM Customers;
+﻿DELETE
+FROM OrderProducts;
+DELETE
+FROM WishlistProducts;
+DELETE
+FROM Ratings;
+DELETE
+FROM Orders;
+DELETE
+FROM Wishlists;
+DELETE
+FROM Products;
+DELETE
+FROM Categories;
+DELETE
+FROM Customers;
 
-DELETE FROM sqlite_sequence WHERE name='OrderProducts';
-DELETE FROM sqlite_sequence WHERE name='WishlistProducts';
-DELETE FROM sqlite_sequence WHERE name='Ratings';
-DELETE FROM sqlite_sequence WHERE name='Orders';
-DELETE FROM sqlite_sequence WHERE name='Wishlists';
-DELETE FROM sqlite_sequence WHERE name='Products';
-DELETE FROM sqlite_sequence WHERE name='Categories';
-DELETE FROM sqlite_sequence WHERE name='Customers';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'OrderProducts';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'WishlistProducts';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'Ratings';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'Orders';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'Wishlists';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'Products';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'Categories';
+DELETE
+FROM sqlite_sequence
+WHERE name = 'Customers';
 
 -- Insert into Customers
 INSERT INTO Customers (Name, Email)
@@ -136,3 +160,39 @@ VALUES (1);
 -- Insert into WishlistProducts
 INSERT INTO WishlistProducts (WishlistId, ProductId)
 VALUES (1, 1);
+
+
+with tree as
+         (select *
+          from Categories
+          union all
+          select *
+          from tree
+          where CategoryId =
+                (select Id
+                 from Categories
+                 where Categories.Name = 'Laptops'))
+select *
+from tree;
+
+with tree AS
+         (select id, categoryid, name
+          from Categories 
+          where Name = 'Laptops'
+          union all
+          select c.id, c.categoryid, c.name
+          from Categories c
+                   inner join tree ct ON c.CategoryId = ct.Id)
+select *
+from tree;
+
+with CategoryTree AS (select Id, CategoryId, Name
+                      from Categories
+                      where Name = 'Gaming'
+                      union all
+                      select c.Id, c.CategoryId, c.Name
+                      from Categories c
+                               inner join CategoryTree ct ON c.Id = ct.CategoryId)
+select *
+from CategoryTree;
+
