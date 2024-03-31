@@ -30,32 +30,7 @@ public class InsertData {
 
 	private void InsertCategory() {
 		void InsertNode(Category parentCategory, Category newCategory) {
-			var parent = _context.Categories
-								 .FirstOrDefault(c => c.Name == parentCategory.Name);
-			if (parent == null) {
-				parentCategory.Lft = 1;
-				parentCategory.Rgt = 2;
 
-				_context.Categories.Add(parentCategory);
-				_context.SaveChanges();
-				parent = parentCategory;
-			}
-
-			newCategory.Lft = parent.Rgt;
-			newCategory.Rgt = newCategory.Lft + 1;
-
-			foreach (var node in _context.Categories.Where(n => n.Rgt >= newCategory.Lft)) {
-				node.Rgt += 2;
-			}
-
-			foreach (var node in _context.Categories.Where(n => n.Lft > newCategory.Lft)) {
-				node.Lft += 2;
-			}
-
-			_context.Categories.Add(newCategory);
-
-			parent.Rgt = newCategory.Rgt + 1;
-			_context.SaveChanges();
 		}
 
 		InsertNode(new Category { Name = "Store" },      new Category { Name = "Computer" });
